@@ -1,5 +1,5 @@
-let str = "say my name!"
+let str:string = "say my name!"
 
-function heyHey(str) {
+function heyHey(str): void {
     return str.toUppercase()
 }

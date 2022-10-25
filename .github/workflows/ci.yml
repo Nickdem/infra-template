@@ -10,6 +10,6 @@ jobs:
         with:
           node-version: "16.16.0"
       - name: dependencies
-        run: npm ci
+        run: npm i
       - name: lint
         run: npm run lint
