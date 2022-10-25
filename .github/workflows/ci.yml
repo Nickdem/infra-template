@@ -11,5 +11,7 @@ jobs:
           node-version: "16.16.0"
       - name: dependencies
         run: npm i
+      - name: run ts
+        run: npm run ts
       - name: lint
         run: npm run lint
