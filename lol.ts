@@ -1,7 +1,7 @@
-const str:string = "say my name!"
+const str: string = "say my name!";
 
 function heyHey(str: string): string {
-    return str.toUpperCase()
+  return str.toUpperCase();
 }
 
-heyHey(str)
+heyHey(str);
