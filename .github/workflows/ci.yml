@@ -1,5 +1,5 @@
 name: testing-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.actor }} pushes changes to the ${{github.ref_name}}
 on: [push]
 jobs:
   codestyle-lint:
@@ -10,8 +10,10 @@ jobs:
         with:
           node-version: "16.16.0"
       - name: dependencies
-        run: npm i
+        run: npm ci
       - name: run ts
         run: npm run ts
-      - name: lint
+      - name: run lint
         run: npm run lint
+      - name: run tests
+        run: npm run test
