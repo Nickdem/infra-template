@@ -5,3 +5,19 @@ function heyHey(str: string): string {
 }
 
 heyHey(str);
+
+var str1: string = "say my name!";
+
+function heyHey1(str: string): string {
+  return str.toUpperCase();
+}
+
+heyHey1(str1);
+
+var str2: string = "say my name!";
+
+function heyHey2(str: string): string {
+  return str.toUpperCase();
+}
+
+heyHey(str2);
