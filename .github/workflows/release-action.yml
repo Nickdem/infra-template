@@ -21,8 +21,16 @@ jobs:
       - name: run tests
         run: npm run test
       - run: echo "Ends with job status - ${{ job.status }}."
-      - if: ${{job.status == 'success'}}
-      - name: make ticket
-        run: echo "...Make build/release..."
-      - if: ${{job.status != 'success'}}
-        run: echo "Correct the mistakes"
+  build:
+    needs: lint-tests-typescript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.16.0"
+      - name: dependencies
+        run: npm ci
+      - name: run build
+        run: npm run build
+      - run: echo "Make release..."
