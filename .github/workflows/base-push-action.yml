@@ -2,7 +2,7 @@ name: base push
 run-name: ${{ github.actor }} pushes changes to the ${{ github.ref_name }}
 on: 
   push:
-   branches:
+    branches:
       - '**'
     tags-ignore:
       - rc-0.0.*
