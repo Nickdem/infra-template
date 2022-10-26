@@ -22,4 +22,8 @@ jobs:
         run: npm run lint
       - name: run tests
         run: npm run test
-      - run: echo "Ends job with status - ${{ job.status }}."
+      - if: ${{job.status == 'success'}}
+      - name: make ticket
+        run: echo "...Make build/release..."
+      - if: ${{job.status != 'success'}}
+        run: echo "Correct the mistakes"
