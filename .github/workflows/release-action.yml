@@ -21,8 +21,3 @@ jobs:
       - name: run tests
         run: npm run test
       - run: echo "Ends with job status - ${{ job.status }}."
-      {{ if ${{ job.status }} == "success" }}
-      - run: echo "allright"
-      {{ else }}
-      - run: echo "very-very bad"
-      {{ ends }}
