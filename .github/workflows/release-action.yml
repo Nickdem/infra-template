@@ -2,8 +2,10 @@ name: release push
 run-name: ${{ github.actor }} pushes changes to the ${{github.ref_name}}
 on: 
   push:
+    branches:
+      - '*'
     tags:
-       - rc-0.0.*
+      - rc-0.0.*
 jobs:
   lint-tests-typescript:
     runs-on: ubuntu-latest
