@@ -25,5 +25,5 @@ jobs:
       - run: echo "Ends with job status - ${{ job.status }}."
       - if: ${{job.status == 'success'}}
         run: echo "allright"
-      - else:
+      - if: ${{job.status != 'success'}}
         run: echo "very-very bad"
