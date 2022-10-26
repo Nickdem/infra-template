@@ -1,4 +1,4 @@
-let str: string = "say my name!";
+var str: string = "say my name!";
 
 function heyHey(str: string): string {
   return str.toUpperCase();
