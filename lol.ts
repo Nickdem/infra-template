@@ -14,10 +14,10 @@ function heyHey1(str: string): string {
 
 heyHey1(str1);
 
-var str2: string = "say my name!";
+const str2: string = "say my name!";
 
 function heyHey2(str: string): string {
   return str.toUpperCase();
 }
 
-heyHey(str2);
+heyHey2(str2);

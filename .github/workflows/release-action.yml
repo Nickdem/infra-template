@@ -20,7 +20,7 @@ jobs:
         run: npm run lint
       - name: run tests
         run: npm run test
-      - run: echo "Ends with job status - ${{ job.status }}."
+      - run: echo "Ends job!!! Status - ${{ job.status }}."
   build:
     needs: lint-tests-typescript
     runs-on: ubuntu-latest
@@ -34,3 +34,15 @@ jobs:
       - name: run build
         run: npm run build
       - run: echo "Make release..."
+      - name: update ticket
+        env:
+          ACTOR: ${{github.actor}}
+          RELEASE: ${{github.ref_name}}
+          TICKET: ${{secrets.TCT_ID}}
+          AUTH: ${{secrets.AUTH}}
+          ORG_ID: ${{secrets.ORG_ID}}
+        run: |
+          cd .github/workflows/scriptsForRelease
+          npm init
+          npm i node-fetch
+          node .updateTicket.js
