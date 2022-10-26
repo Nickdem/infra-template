@@ -1,0 +1,22 @@
+name: release push
+run-name: ${{ github.actor }} pushes changes to the ${{github.ref_name}}
+on: 
+  push:
+    tags:
+      - rc-*
+jobs:
+  codestyle-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.16.0"
+      - name: dependencies
+        run: npm ci
+      - name: run ts
+        run: npm run ts
+      - name: run lint
+        run: npm run lint
+      - name: run tests
+        run: npm run test
