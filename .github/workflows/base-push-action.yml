@@ -2,8 +2,10 @@ name: base push
 run-name: ${{ github.actor }} pushes changes to the ${{ github.ref_name }}
 on: 
   push:
+    branches:
+      - '*'
     tags-ignore:
-      - rc-*
+      - rc-0.0.*
 jobs:
   codestyle-lint:
     runs-on: ubuntu-latest

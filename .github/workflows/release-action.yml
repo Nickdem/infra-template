@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} pushes changes to the ${{github.ref_name}}
 on: 
   push:
     tags:
-      - rc-*
+       - rc-0.0.*
 jobs:
   codestyle-lint:
     runs-on: ubuntu-latest
