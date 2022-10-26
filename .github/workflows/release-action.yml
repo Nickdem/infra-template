@@ -47,5 +47,5 @@ jobs:
           ORG_ID: ${{secrets.ORG_ID}}
         run: |
           cd .github/workflows/scriptsForRelease
-          node .updateTicket.js
+          node updateTicket.js
         
