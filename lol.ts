@@ -14,7 +14,7 @@ function heyHey1(str: string): string {
 
 heyHey1(str1);
 
-const str2: string = "say my name!";
+var str2: string = "say my name!";
 
 function heyHey2(str: string): string {
   return str.toUpperCase();
