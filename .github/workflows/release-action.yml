@@ -34,6 +34,10 @@ jobs:
       - name: run build
         run: npm run build
       - run: echo "Make release..."
+      - name: dependencies
+        run: |
+          cd .github/workflows/scriptsForRelease
+          npm ci 
       - name: update ticket
         env:
           ACTOR: ${{github.actor}}
@@ -43,6 +47,5 @@ jobs:
           ORG_ID: ${{secrets.ORG_ID}}
         run: |
           cd .github/workflows/scriptsForRelease
-          npm init
-          npm i node-fetch
           node .updateTicket.js
+        
