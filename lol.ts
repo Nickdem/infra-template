@@ -6,7 +6,7 @@ function heyHey(str: string): string {
 
 heyHey(str);
 
-const str1: string = "say my name!";
+const str1: string = "try this!";
 
 function heyHey1(str: string): string {
   return str.toUpperCase();
@@ -14,7 +14,7 @@ function heyHey1(str: string): string {
 
 heyHey1(str1);
 
-const str2: string = "say my name!";
+const str2: string = "ooops i did it again";
 
 function heyHey2(str: string): string {
   return str.toUpperCase();
