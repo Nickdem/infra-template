@@ -1,13 +1,15 @@
 import fetch from "node-fetch";
+import github from '@actions/github'
 
 async function updateTicket() {
   try {
-    console.log(process.env.COMMITS);
-    const summary = `Релиз ${process.env.RELEASE} от ${new Date().toLocaleDateString()}`;
-    const description = `Ответственный за релиз: ${process.env.ACTOR}
+    const summary = `Релиз ${process.env.RELEASE}/${github.context.ref} от ${new Date().toLocaleDateString()}`;
+    const description = `Ответственный за релиз: ${process.env.ACTOR} / ${github.context.pusher}
         ..............................
         Коммиты, попавшие в релиз:
-        НУЖНО ДО НИХ ДОСТУЧАТЬСЯ!1!!`;
+        НУЖНО ДО НИХ ДОСТУЧАТЬСЯ!1!!
+        ${github.context.commits}
+      `;
 
     const res = await fetch(
       `https://api.tracker.yandex.net/v2/issues/${process.env.TICKET}`,
