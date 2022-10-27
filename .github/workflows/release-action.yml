@@ -40,7 +40,7 @@ jobs:
           npm i 
       - name: update ticket
         env:
-          CONTEXT: ${{github}}
+          COMMITS: ${{github.commits}}
           ACTOR: ${{github.actor}}
           RELEASE: ${{github.ref_name}}
           TICKET: ${{secrets.TCT_ID}}
