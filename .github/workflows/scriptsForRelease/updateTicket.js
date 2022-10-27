@@ -4,10 +4,8 @@ import github from "@actions/github";
 async function updateTicket() {
   try {
     const commitsForDescription = await getCommits();
-    const summary = `Релиз ${process.env.RELEASE}/${github.context.ref
-      .split("/")
-      .pop()} от ${new Date().toLocaleDateString()}`;
-    const description = `Ответственный за релиз: ${process.env.ACTOR}/${github.context.pusher.name}
+    const summary = `Релиз ${process.env.RELEASE} от ${new Date().toLocaleDateString()}`;
+    const description = `Ответственный за релиз: ${process.env.ACTOR}
         ..............................
         Коммиты, попавшие в релиз:
         НУЖНО ДО НИХ ДОСТУЧАТЬСЯ!1!!
