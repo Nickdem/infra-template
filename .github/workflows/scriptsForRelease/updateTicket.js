@@ -37,7 +37,8 @@ async function updateTicket() {
 
 async function getCommits() {
   try {
-    const res = await fetch(github.repository.compare_url);
+    // const res = await fetch(github.repository.compare_url);
+    const res = await fetch(`https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.1...${process.env.RELEASE}`);
     const commits = res.commits;
     const result = commits
       .map((c) => {
