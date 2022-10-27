@@ -48,7 +48,7 @@ async function getCommits() {
     }
 
     const json = await res.json();
-    const commits = json.commits;
+    const commits =+releaseNum > 1 ? json.commits : json;
     const result = commits
       .map((c) => {
         return `${c.commit.author.name} - ${c.commit.message}`;
