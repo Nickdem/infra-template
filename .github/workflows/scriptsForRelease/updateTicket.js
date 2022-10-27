@@ -3,12 +3,14 @@ import github from '@actions/github'
 
 async function updateTicket() {
   try {
-    const summary = `Релиз ${process.env.RELEASE}/${github.context.ref.split('.').pop()} от ${new Date().toLocaleDateString()}`;
-    const description = `Ответственный за релиз: ${process.env.ACTOR} / ${github.context.payload.pusher}
+    const summary = `Релиз ${process.env.RELEASE}/${github.context.ref.split('/').pop()} от ${new Date().toLocaleDateString()}`;
+    const description = `Ответственный за релиз: ${process.env.ACTOR}/${github.context.actor}
         ..............................
         Коммиты, попавшие в релиз:
         НУЖНО ДО НИХ ДОСТУЧАТЬСЯ!1!!
         ${github.context.payload.commits}
+        ${github.context.commits}
+        ${github.commits}
       `;
 
     const res = await fetch(
