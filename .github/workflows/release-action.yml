@@ -29,15 +29,15 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.16.0"
-      - name: dependencies
-        run: npm ci
-      - name: run build
-        run: npm run build
-      - run: echo "Make release..."
+      # - name: dependencies
+      #   run: npm ci
+      # - name: run build
+      #   run: npm run build
+      # - run: echo "Make release..."
       - name: dependencies
         run: |
           cd .github/workflows/scriptsForRelease
-          npm ci 
+          npm i 
       - name: update ticket
         env:
           ACTOR: ${{github.actor}}
@@ -46,5 +46,6 @@ jobs:
           AUTH: ${{secrets.AUTH}}
           ORG_ID: ${{secrets.ORG_ID}}
         run: |
-          node updateTicket.mjs
+          cd .github/workflows/scriptsForRelease
+          node updateTicket.js
         
