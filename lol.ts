@@ -9,7 +9,7 @@ heyHey(str);
 const str1: string = "try this!";
 
 function heyHey1(str: string): string {
-  return str.toUpperCase();
+  return str.toLowerCase();
 }
 
 heyHey1(str1);
@@ -17,7 +17,7 @@ heyHey1(str1);
 const str2: string = "ooops i did it again";
 
 function heyHey2(str: string): string {
-  return str.toUpperCase();
+  return str.toString();
 }
 
 heyHey2(str2);
