@@ -1,16 +1,17 @@
 import fetch from "node-fetch";
-import github from '@actions/github'
+import github from "@actions/github";
 
 async function updateTicket() {
   try {
-    const summary = `Релиз ${process.env.RELEASE}/${github.context.ref.split('/').pop()} от ${new Date().toLocaleDateString()}`;
-    const description = `Ответственный за релиз: ${process.env.ACTOR}/${github.context.actor}
+    const commitsForDescription = await getCommits();
+    const summary = `Релиз ${process.env.RELEASE}/${github.context.ref
+      .split("/")
+      .pop()} от ${new Date().toLocaleDateString()}`;
+    const description = `Ответственный за релиз: ${process.env.ACTOR}/${github.context.pusher.name}
         ..............................
         Коммиты, попавшие в релиз:
         НУЖНО ДО НИХ ДОСТУЧАТЬСЯ!1!!
-        ${github.context.payload.commits}
-        ${github.context.commits}
-        ${github.commits}
+        ${commitsForDescription}
       `;
 
     const res = await fetch(
@@ -27,12 +28,31 @@ async function updateTicket() {
     );
 
     if (!res.ok) {
-      throw Error('Ошибка ', res.statusText);
+      throw Error("Ошибка ", res.statusText);
     }
   } catch (e) {
     console.log(e);
   }
 }
 
-updateTicket().then(() => console.log('Updated'));
+async function getCommits() {
+  try {
+    const res = await fetch(github.context.repository.compare_url);
+    const commits = res.commits;
+    const result = commits
+      .map((c) => {
+        return `${c.commit.author.name} + - + ${c.commit.message}`;
+      })
+      .join("\n");
 
+    if (!res.ok) {
+      throw Error("Ошибка ", res.statusText);
+    }
+    
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+updateTicket().then(() => console.log("Updated"));
