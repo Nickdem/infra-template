@@ -37,7 +37,7 @@ async function updateTicket() {
 
 async function getCommits() {
   try {
-    const res = await fetch(github.context.repository.compare_url);
+    const res = await fetch(github.repository.compare_url);
     const commits = res.commits;
     const result = commits
       .map((c) => {
@@ -48,7 +48,7 @@ async function getCommits() {
     if (!res.ok) {
       throw Error("Ошибка ", res.statusText);
     }
-    
+
     return result;
   } catch (e) {
     console.log(e);
