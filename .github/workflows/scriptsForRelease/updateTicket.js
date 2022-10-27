@@ -39,17 +39,19 @@ async function getCommits() {
   try {
     // const res = await fetch(github.repository.compare_url);
     const res = await fetch(`https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.1...${process.env.RELEASE}`);
+    if (!res.ok) {
+      throw Error("Ошибка ", res.statusText);
+    }
+
     const json = await res.json()
     const commits = json.commits;
     const result = commits
       .map((c) => {
-        return `${c.commit.author.name} + - + ${c.commit.message}`;
+        return `- ${c.commit.message}`;
       })
       .join("\n");
 
-    if (!res.ok) {
-      throw Error("Ошибка ", res.statusText);
-    }
+    
 
     return result;
   } catch (e) {
