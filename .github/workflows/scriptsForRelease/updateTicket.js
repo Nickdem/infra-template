@@ -3,9 +3,7 @@ import github from "@actions/github";
 
 async function updateTicket() {
   try {
-    const commitsForDescription = await getCommits(
-      process.env.RELEASE.split(".").pop()
-    );
+    const commitsForDescription = await getCommits();
     const summary = `Релиз ${
       process.env.RELEASE
     } от ${new Date().toLocaleDateString()}`;
@@ -37,12 +35,13 @@ async function updateTicket() {
   }
 }
 
-async function getCommits(releaseNum) {
+async function getCommits() {
   try {
     // const res = await fetch(github.repository.compare_url);
+    const releaseNum = process.env.RELEASE.split('.').pop()
     const url =
       +releaseNum > 1
-        ? `https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.1...${process.env.RELEASE}`
+        ? `https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.${+releaseNum-1}...${process.env.RELEASE}`
         : "https://api.github.com/repos/Nickdem/infra-template/commits";
     const res = await fetch(url);
     if (!res.ok) {
