@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 
 async function updateTicket() {
   try {
-    console.log(process.env.COMMITS);
+    console.log(process.env.CONTEXT);
     const summary = `Релиз ${process.env.RELEASE} от ${new Date().toLocaleDateString()}`;
     const description = `Ответственный за релиз: ${process.env.ACTOR}
         ..............................
