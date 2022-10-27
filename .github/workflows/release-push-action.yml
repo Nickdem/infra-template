@@ -48,4 +48,8 @@ jobs:
         run: |
           cd .github/workflows/scriptsForRelease
           node updateTicket.js
+      - name: docker image
+        run: echo "hehe docker"
+     
+
         

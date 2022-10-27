@@ -1,27 +1,29 @@
 import fetch from "node-fetch";
-import github from "@actions/github";
 
 async function updateTicket() {
   try {
-    const commitsForDescription = await getCommits();
-    const summary = `Релиз ${
-      process.env.RELEASE
-    } от ${new Date().toLocaleDateString()}`;
-    const description = `Ответственный за релиз: ${process.env.ACTOR}
+    const { RELEASE, TICKET, ACTOR, ORG_ID, AUTH } = process.env;
+
+    const commitsForDescription = await getCommits(RELEASE);
+    const date = new Date().toLocaleDateString();
+    const summary = `Релиз ${RELEASE} от ${date}`;
+    const description = `Ответственный за релиз: ${ACTOR}
         ..........................................................................................
         Коммиты, попавшие в релиз:
         ${commitsForDescription}
       `;
 
+    const headers = {
+      Authorization: `OAuth ${AUTH}`,
+      "X-Org-ID": ORG_ID,
+      "Content-Type": "application/json",
+    };
+
     const res = await fetch(
-      `https://api.tracker.yandex.net/v2/issues/${process.env.TICKET}`,
+      `https://api.tracker.yandex.net/v2/issues/${TICKET}`,
       {
         method: "PATCH",
-        headers: {
-          Authorization: `OAuth ${process.env.AUTH}`,
-          "X-Org-ID": process.env.ORG_ID,
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify({ summary, description }),
       }
     );
@@ -34,16 +36,17 @@ async function updateTicket() {
   }
 }
 
-async function getCommits() {
+async function getCommits(release) {
   try {
-    // const res = await fetch(github.repository.compare_url);
-    const releaseNum = process.env.RELEASE.split(".").pop();
+    const releaseNum = +release.split(".").pop();
+
     const url =
       +releaseNum > 1
         ? `https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.${
             +releaseNum - 1
-          }...${process.env.RELEASE}`
+          }...${release}`
         : "https://api.github.com/repos/Nickdem/infra-template/commits";
+
     const res = await fetch(url);
 
     if (!res.ok) {
