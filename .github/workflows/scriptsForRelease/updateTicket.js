@@ -8,9 +8,8 @@ async function updateTicket() {
       process.env.RELEASE
     } от ${new Date().toLocaleDateString()}`;
     const description = `Ответственный за релиз: ${process.env.ACTOR}
-        ..............................
+        ..........................................................................................
         Коммиты, попавшие в релиз:
-        НУЖНО ДО НИХ ДОСТУЧАТЬСЯ!1!!
         ${commitsForDescription}
       `;
 
