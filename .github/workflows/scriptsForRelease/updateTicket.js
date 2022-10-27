@@ -3,8 +3,12 @@ import github from "@actions/github";
 
 async function updateTicket() {
   try {
-    const commitsForDescription = await getCommits();
-    const summary = `Релиз ${process.env.RELEASE} от ${new Date().toLocaleDateString()}`;
+    const commitsForDescription = await getCommits(
+      process.env.RELEASE.split(".").pop()
+    );
+    const summary = `Релиз ${
+      process.env.RELEASE
+    } от ${new Date().toLocaleDateString()}`;
     const description = `Ответственный за релиз: ${process.env.ACTOR}
         ..............................
         Коммиты, попавшие в релиз:
@@ -33,23 +37,25 @@ async function updateTicket() {
   }
 }
 
-async function getCommits() {
+async function getCommits(releaseNum) {
   try {
     // const res = await fetch(github.repository.compare_url);
-    const res = await fetch(`https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.1...${process.env.RELEASE}`);
+    const url =
+      +releaseNum > 1
+        ? `https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.1...${process.env.RELEASE}`
+        : "https://api.github.com/repos/Nickdem/infra-template/commits";
+    const res = await fetch(url);
     if (!res.ok) {
       throw Error("Ошибка ", res.statusText);
     }
 
-    const json = await res.json()
+    const json = await res.json();
     const commits = json.commits;
     const result = commits
       .map((c) => {
-        return `- ${c.commit.message}`;
+        return `${c.commit.author.name} - ${c.commit.message}`;
       })
       .join("\n");
-
-    
 
     return result;
   } catch (e) {
