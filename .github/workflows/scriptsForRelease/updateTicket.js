@@ -37,18 +37,21 @@ async function updateTicket() {
 async function getCommits() {
   try {
     // const res = await fetch(github.repository.compare_url);
-    const releaseNum = process.env.RELEASE.split('.').pop()
+    const releaseNum = process.env.RELEASE.split(".").pop();
     const url =
       +releaseNum > 1
-        ? `https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.${+releaseNum-1}...${process.env.RELEASE}`
+        ? `https://api.github.com/repos/Nickdem/infra-template/compare/rc-0.0.${
+            +releaseNum - 1
+          }...${process.env.RELEASE}`
         : "https://api.github.com/repos/Nickdem/infra-template/commits";
     const res = await fetch(url);
+
     if (!res.ok) {
       throw Error("Ошибка ", res.statusText);
     }
 
     const json = await res.json();
-    const commits =+releaseNum > 1 ? json.commits : json;
+    const commits = +releaseNum > 1 ? json.commits : json;
     const result = commits
       .map((c) => {
         return `${c.commit.author.name} - ${c.commit.message}`;
