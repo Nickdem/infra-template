@@ -4,8 +4,8 @@ COPY . /app
 
 RUN npm install
 
-# RUN npm install --global http-server
+RUN npm install --global http-server
 
 RUN npm run build
 
-# CMD [" http-server", "build"] 
+CMD [" http-server", "build"] 
