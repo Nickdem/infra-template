@@ -50,6 +50,14 @@ jobs:
           node updateTicket.js
       - name: docker image
         run: echo "hehe docker"
-     
+      - name: update comment
+        env:
+          RELEASE: ${{github.ref_name}}
+          TICKET: ${{secrets.TCT_ID}}
+          AUTH: ${{secrets.AUTH}}
+          ORG_ID: ${{secrets.ORG_ID}}
+        run: |
+          cd .github/workflows/scriptsForRelease
+          node makeComment.js
 
         
