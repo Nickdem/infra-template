@@ -48,7 +48,7 @@ jobs:
         run: |
           cd .github/workflows/scriptsForRelease
           node updateTicket.js
-      - name: docker image
+      - name: docker build
         run: echo "hehe docker"
       - name: update comment
         env:

@@ -16,7 +16,7 @@ async function makeComment() {
         method: "POST",
         headers,
         body: JSON.stringify({
-          text: `Собрали образ в тегом ${RELEASE}`,
+          text: `Собрали образ с тегом ${RELEASE}`,
         }),
       }
     );

@@ -6,7 +6,7 @@ async function updateTicket() {
 
     const commitsForDescription = await getCommits(RELEASE);
     const date = new Date().toLocaleDateString();
-    const summary = `Релиз ${RELEASE} от ${date}`;
+    const summary = `Релиз ${RELEASE} - ${date}`;
     const description = `Ответственный за релиз: ${ACTOR}
         ..........................................................................................
         Коммиты, попавшие в релиз:
